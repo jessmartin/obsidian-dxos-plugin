@@ -9,18 +9,16 @@ import {
 	Setting,
 } from "obsidian";
 
-// Remember to rename these classes and interfaces!
-
-interface MyPluginSettings {
+interface DXOSSyncPluginSettings {
 	mySetting: string;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: DXOSSyncPluginSettings = {
 	mySetting: "default",
 };
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class DXOSSyncPlugin extends Plugin {
+	settings: DXOSSyncPluginSettings;
 
 	async onload() {
 		await this.loadSettings();
@@ -35,7 +33,7 @@ export default class MyPlugin extends Plugin {
 			}
 		);
 		// Perform additional things with the ribbon
-		ribbonIconEl.addClass("my-plugin-ribbon-class");
+		ribbonIconEl.addClass("dxos-sync-plugin-ribbon-class");
 
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		// const statusBarItemEl = this.addStatusBarItem();
@@ -126,9 +124,9 @@ class SampleModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: DXOSSyncPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: DXOSSyncPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}

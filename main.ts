@@ -9,7 +9,7 @@ import {
   Setting,
 } from "obsidian";
 
-// import { Client } from "@dxos/client";
+import { Client } from "@dxos/client";
 
 interface DXOSSyncPluginSettings {
   mySetting: string;
@@ -21,13 +21,14 @@ const DEFAULT_SETTINGS: DXOSSyncPluginSettings = {
 
 export default class DXOSSyncPlugin extends Plugin {
   settings: DXOSSyncPluginSettings;
+  client: Client;
 
   async onload() {
     await this.loadSettings();
 
-    // const client = new Client();
-    // await client.initialize();
-    // console.log(client.version);
+    this.client = new Client();
+    await this.client.initialize();
+    console.log(this.client.version);
 
     // This creates an icon in the left ribbon.
     const ribbonIconEl = this.addRibbonIcon(
@@ -141,15 +142,15 @@ class SampleSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Setting #3")
       .setDesc("It's a secret")
-      .addText((text) =>
-        text
-          .setPlaceholder("Enter your secret")
-          .setValue(this.plugin.settings.mySetting)
-          .onChange(async (value) => {
-            this.plugin.settings.mySetting = value;
-            await this.plugin.saveSettings();
-          })
-      );
-    // .addText((text) => text.setValue(this.plugin.client.version));
+      .addText((text) => text.setValue(this.plugin.client.version));
+    // .addText((text) =>
+    //   text
+    //     .setPlaceholder("Enter your secret")
+    //     .setValue(this.plugin.settings.mySetting)
+    //     .onChange(async (value) => {
+    //       this.plugin.settings.mySetting = value;
+    //       await this.plugin.saveSettings();
+    //     })
+    // );
   }
 }
